@@ -15,7 +15,8 @@ OutputT = ty.TypeVar("OutputT")
 
 
 ModelT = ty.Callable[[ControlT, ParamT], OutputT]
-DataT = tuple[list[ControlT], list[OutputT]]
+DataT = ty.Tuple[ty.List[ControlT], ty.List[OutputT]]
+#DataT = ty.List[ty.Tuple[ControlT, OutputT]]
 
 
 class Fitter(ty.Generic[ParamT, ControlT, OutputT], abc.ABC):
@@ -24,11 +25,12 @@ class Fitter(ty.Generic[ParamT, ControlT, OutputT], abc.ABC):
         self.model = model
 
     @abc.abstractmethod
-    def fit(self, data: DataT, params0: ParamT) -> tuple[ParamT, ParamT, float]:
+    def fit(self, data: DataT, params0: ParamT) -> ty.Tuple[ParamT, ParamT, float]:
         pass
 
 
 FitterBuilderT = ty.Callable[[ModelT], Fitter[ParamT, ControlT, OutputT]]
+
 
 class Suggester(ty.Generic[ParamT, ControlT, OutputT], abc.ABC):
 
@@ -44,7 +46,7 @@ class Suggester(ty.Generic[ParamT, ControlT, OutputT], abc.ABC):
     def model(self) -> ModelT:
         return self.fitter.model
 
-    def objective_function(self, control: ControlT, params: ParamT, control_data: list[ControlT], out_data: list[OutputT]) -> float:
+    def objective_function(self, control: ControlT, params: ParamT, control_data: ty.List[ControlT], out_data: ty.List[OutputT]) -> float:
         out = self.fitter.model(control, params)
         out_data = out_data.copy()
         control_data.append(control)
