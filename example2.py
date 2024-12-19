@@ -38,6 +38,42 @@ class MyFitter(core.Fitter[ParamT, ControlT, OutputT]):
         res = optimize.minimize(_internal, x0=np.zeros_like(P_NATURE))
         return res.x, np.ones_like(res.x), 0
 
+# class MyABCGeneric(core.Fitter[ParamT, ControlT, OutputT]):
+#
+#     def __init__(self):
+#         self.abc = pyabc.ABCSMC(
+#             models=model,
+#             parameter_priors=self.priors,
+#             distance_function=distance,
+#             population_size=self.population_size)
+#             abc.new("sqlite:////tmp/test.db",
+#             dict(data=self.ydata)
+#            )
+#
+#     def distance(simulation, data):
+#         delta = data["data"] - simulation["data"]
+#         return np.linalg.norm(delta)
+#
+#     def get_best_value(self, df) -> ParamT:
+#         return np.asarray([np.mean(df["p{ndx}"] for ndx in range(5))])
+#
+#     def get_width_value(self, df) -> ParamT:
+#         return np.asarray([np.std(df["p{ndx}"] for ndx in range(5))])
+#
+#     def get_parameter_size(self, df) -> float:
+#         return np.linalg.norm(self.get_width_value(df)/self.get_best_value(df))
+#     def fit(self, data: tuple[list[ControlT], list[OutputT]], params0: ParamT) -> tuple[ParamT, ParamT, float]:
+#         df, w = self.abc.run().get_distribution()
+#         return self.get_best_value(df), self.get_width_value(df), self.get_parameter_size()
+#
+# class MyABC(MyABCGeneric):
+#
+#     priors = {
+#
+#     }
+#
+#     population_size =50
+#
 
 class MyAimer(core.Suggester[ParamT, ControlT, OutputT]):
 
