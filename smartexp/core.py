@@ -55,3 +55,26 @@ class SmartExperiment[DataT, ParamT, ControlT, OutputT]:
                 self.acquire(control)
                 self.last_best_params = best_params
                 return True
+
+
+class Base:
+
+    def measure(self):
+        pass
+
+    def fit(self, input):
+        pass
+
+    def process(self, output):
+        pass
+
+    def step(self):
+        x = self.measure()
+        y = self.fit(x)
+        return self.process(y)
+
+
+def step(obj)
+    x = obj.measure()
+    y = obj.fit(x)
+    return obj.process(y)
