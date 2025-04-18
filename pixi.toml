@@ -3,14 +3,18 @@ authors = ["Hernan Grecco <hgrecco@gmail.com>"]
 channels = ["conda-forge"]
 description = "Add a short description here"
 name = "smartexp"
-platforms = ["osx-arm64"]
+platforms = ["osx-arm64", "linux-64"]
 version = "0.1.0"
 
 [tasks]
 
 [dependencies]
-python = "3.13.*"
+python = "*"
 numpy = "*"
 scipy = "*"
 matplotlib = "*"
 jupyter = ">=1.1.1,<2"
+pydantic = ">=2.10.4,<3"
+pandas = ">=2.2.3,<3"
+tqdm = ">=4.67.1,<5"
+bayesian-optimization = ">=2.0.3,<3"
